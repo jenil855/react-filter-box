@@ -9,52 +9,63 @@ import Expression from "./Expression";
 import ParsedError from "./ParsedError";
 
 export default class FilterQueryParser {
-    autoCompleteHandler = new BaseAutoCompleteHandler();
-    lastError: PEG.PegjsError = null;
+  autoCompleteHandler = new BaseAutoCompleteHandler();
+  lastError: PEG.PegjsError = null;
 
-    parseTrace = new ParseTrace();
-    constructor() {
+  parseTrace = new ParseTrace();
+  constructor() {}
 
+  parse(query: string): Expression[] | ParsedError {
+    query = _.trim(query);
+    if (_.isEmpty(query)) {
+      return [];
     }
 
-    parse(query: string): Expression[] | ParsedError {
-        query = _.trim(query);
-        if (_.isEmpty(query)) {
-            return [];
-        }
+    try {
+      const getRes = this.parseQuery(query);
+      console.log("getRes :: ", getRes);
 
-        try {
-            return this.parseQuery(query);
-        } catch (ex) {
-            ex.isError = true;
-            return ex;
-        }
+      return getRes;
+    } catch (ex) {
+      ex.isError = true;
+      return ex;
     }
+  }
 
-    private parseQuery(query: string) {
-        this.parseTrace.clear();
-        return parser.parse(query, { parseTrace: this.parseTrace });
+  private parseQuery(query: string) {
+    this.parseTrace.clear();
+    return parser.parse(query, { parseTrace: this.parseTrace });
+  }
+
+  getSuggestions(query: string): HintInfo[] {
+    console.log("getSuggestions :: ", query);
+
+    query = grammarUtils.stripEndWithNonSeparatorCharacters(query);
+    try {
+      query = query.toString().replace("== ", "== *");
+        console.log("Every Query :: ", query);
+        
+      this.parseQuery(query);
+
+      if (!query || grammarUtils.isLastCharacterWhiteSpace(query)) {
+        return _.map(["AND", "OR"], (f) => {
+          return { value: f, type: "literal" };
+        });
+      }
+
+      return [];
+    } catch (ex) {
+      return this.autoCompleteHandler.handleParseError(
+        parser,
+        this.parseTrace,
+        ex
+      );
     }
+  }
 
-    getSuggestions(query: string): HintInfo[] {
-        query = grammarUtils.stripEndWithNonSeparatorCharacters(query);
-        try {
-            this.parseQuery(query);
-            if (!query || grammarUtils.isLastCharacterWhiteSpace(query)) {
-                return _.map(["AND", "OR"], f => { return { value: f, type: "literal" } });
-            }
-
-            return [];
-
-        } catch (ex) {
-            return this.autoCompleteHandler.handleParseError(parser, this.parseTrace, ex);
-        }
-    }
-
-    setAutoCompleteHandler(autoCompleteHandler: BaseAutoCompleteHandler) {
-        this.autoCompleteHandler = autoCompleteHandler;
-    }
+  setAutoCompleteHandler(autoCompleteHandler: BaseAutoCompleteHandler) {
+    this.autoCompleteHandler = autoCompleteHandler;
+  }
 }
 
-export interface ExtendedParser extends PEG.Parser {
-}
+export interface ExtendedParser extends PEG.Parser {}
