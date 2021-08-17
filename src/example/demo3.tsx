@@ -20,7 +20,9 @@ class CustomAutoComplete extends GridDataAutoCompleteHandler {
         if (parsedOperator == "after") {
             return [{ customType: "date" }]
         }
-
+        console.log('fdsfsdfsdfsdfsdfsfsdfsdfsdfsdf');
+        // if (parsedOperator == '==') {
+        // }
         return super.needValues(parsedCategory, parsedOperator);
     }
 }

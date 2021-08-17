@@ -21,7 +21,7 @@ export default class FilterInput extends React.Component<any, any> {
     public static defaultProps: any = {
         onBlur: () => { },
         onFocus: () => { },
-        editorConfig: { }
+        editorConfig: {}
     };
 
     constructor(props: any) {
@@ -79,7 +79,7 @@ export default class FilterInput extends React.Component<any, any> {
             console.log("In need autocomplete value :: ", text);
             const result = this.props.needAutoCompleteValues(this.codeMirror, text);
             console.log("result :: ", result);
-            
+
             return result;
         })
 

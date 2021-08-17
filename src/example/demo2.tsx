@@ -1,11 +1,11 @@
 import * as React from 'react';
 import * as _ from "lodash";
 
-import {Table, Column, Cell} from 'fixed-data-table';
+import { Table, Column, Cell } from 'fixed-data-table';
 import "fixed-data-table/dist/fixed-data-table.min.css";
 import data from "./data";
 
-import ReactFilterBox, {AutoCompleteOption, SimpleResultProcessing, Expression, GridDataAutoCompleteHandler} from "../ReactFilterBox";
+import ReactFilterBox, { AutoCompleteOption, SimpleResultProcessing, Expression, GridDataAutoCompleteHandler } from "../ReactFilterBox";
 
 
 //extend this class to add your custom operator
@@ -21,16 +21,16 @@ class CustomAutoComplete extends GridDataAutoCompleteHandler {
 class CustomResultProcessing extends SimpleResultProcessing {
 
     // override this method to add your handler for startsWith operator
-    filter(row:any, fieldOrLabel:string, operator:string, value:string){
+    filter(row: any, fieldOrLabel: string, operator: string, value: string) {
         var field = this.tryToGetFieldCategory(fieldOrLabel);
-        switch(operator){
+        switch (operator) {
             case "==": return row[field] == value;
             case "!=": return row[field] != value;
-            case "contains": return row[field].toLowerCase().indexOf(value.toLowerCase()) >=0;
-            case "!contains": return row[field].toLowerCase().indexOf(value.toLowerCase()) <0;
-            case "startsWith": return  _.startsWith(row[field].toLowerCase(), value.toLowerCase() ) ;
+            case "contains": return row[field].toLowerCase().indexOf(value.toLowerCase()) >= 0;
+            case "!contains": return row[field].toLowerCase().indexOf(value.toLowerCase()) < 0;
+            case "startsWith": return _.startsWith(row[field].toLowerCase(), value.toLowerCase());
         }
-        
+
         return false;
     }
 }
@@ -39,7 +39,7 @@ class CustomResultProcessing extends SimpleResultProcessing {
 export default class Demo2 extends React.Component<any, any> {
 
     options: AutoCompleteOption[];
-    customAutoComplete:CustomAutoComplete;
+    customAutoComplete: CustomAutoComplete;
     constructor(props: any) {
         super(props);
         this.state = {
@@ -66,18 +66,18 @@ export default class Demo2 extends React.Component<any, any> {
             }
         ];
 
-        this.customAutoComplete = new CustomAutoComplete(data,this.options);
-        
+        this.customAutoComplete = new CustomAutoComplete(data, this.options);
+
     }
 
     //customer your rendering item in auto complete
     customRenderCompletionItem(self: any, data: any, pick: any) {
         var className = ` hint-value cm-${data.type}`
-        
+
         return <div className={className}  >
-                    <span style={{ fontWeight: "bold" }}>{data.value}</span>
-                    <span style={{color:"gray", fontSize:10}}> [{data.type}] </span>
-                </div>
+            <span style={{ fontWeight: "bold" }}>{data.value}</span>
+            <span style={{ color: "gray", fontSize: 10 }}> [{data.type}] </span>
+        </div>
     }
 
     onParseOk(expressions: Expression[]) {
@@ -90,17 +90,17 @@ export default class Demo2 extends React.Component<any, any> {
     render() {
         var rows = this.state.data;
         return <div className="main-container">
-            <h3>Custom Rendering (AutoComplete, Operator) <a style={{fontSize:12, color:"#2196F3"}} href="https://github.com/nhabuiduc/react-filter-box/blob/master/js-example/src/demo2.js">Source</a></h3>
+            <h3>Custom Rendering (AutoComplete, Operator) <a style={{ fontSize: 12, color: "#2196F3" }} href="https://github.com/nhabuiduc/react-filter-box/blob/master/js-example/src/demo2.js">Source</a></h3>
 
             <ReactFilterBox
-                autoCompleteHandler = {this.customAutoComplete}
-                customRenderCompletionItem = {this.customRenderCompletionItem.bind(this) }
+                autoCompleteHandler={this.customAutoComplete}
+                customRenderCompletionItem={this.customRenderCompletionItem.bind(this)}
                 query={this.state.query}
                 data={data}
                 options={this.options}
-                onParseOk={this.onParseOk.bind(this) }
-                />
-           
+                onParseOk={this.onParseOk.bind(this)}
+            />
+
         </div>
     }
 }

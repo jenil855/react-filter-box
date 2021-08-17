@@ -13,7 +13,7 @@ export default class FilterQueryParser {
   lastError: PEG.PegjsError = null;
 
   parseTrace = new ParseTrace();
-  constructor() {}
+  constructor() { }
 
   parse(query: string): Expression[] | ParsedError {
     query = _.trim(query);
@@ -22,6 +22,8 @@ export default class FilterQueryParser {
     }
 
     try {
+      // query = query.toString().replace("== ", "== *");
+      console.log(query, ';;;;;;;;;query');
       const getRes = this.parseQuery(query);
       console.log("getRes :: ", getRes);
 
@@ -43,10 +45,17 @@ export default class FilterQueryParser {
     query = grammarUtils.stripEndWithNonSeparatorCharacters(query);
     try {
       query = query.toString().replace("== ", "== *");
-        console.log("Every Query :: ", query);
-        
+
+      console.log("Every Query :: ", query);
       this.parseQuery(query);
 
+
+      console.log(query, !query, grammarUtils.isLastCharacterWhiteSpace(query), 'Query of New');
+      // if (query == '==' && (query || grammarUtils.isLastCharacterWhiteSpace(query))) {
+      //   return _.map(["AND", "OR"], (f) => {
+      //     return { value: f, type: "literal" };
+      //   });
+      // }
       if (!query || grammarUtils.isLastCharacterWhiteSpace(query)) {
         return _.map(["AND", "OR"], (f) => {
           return { value: f, type: "literal" };
@@ -68,4 +77,4 @@ export default class FilterQueryParser {
   }
 }
 
-export interface ExtendedParser extends PEG.Parser {}
+export interface ExtendedParser extends PEG.Parser { }
