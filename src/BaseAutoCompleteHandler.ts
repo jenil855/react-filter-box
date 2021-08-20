@@ -10,7 +10,6 @@ export default class BaseAutoCompleteHandler {
         if (/\s/g.test(text)) {
             return `"${text}"`;
         }
-
         return text;
     }
 
@@ -59,11 +58,11 @@ export default class BaseAutoCompleteHandler {
 
     hasCategory(category: string): boolean {
         return false;
-    } 
+    }
 
     hasOperator(category: string, operator: string): boolean {
         return false;
-    } 
+    }
 
     needCategories(): string[] {
         return []

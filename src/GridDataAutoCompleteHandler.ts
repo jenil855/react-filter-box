@@ -36,7 +36,6 @@ export default class GridDataAutoCompleteHandler extends BaseAutoCompleteHandler
     }
 
     needOperators(parsedCategory: string) {
-        // parsedCategory = this.tryToGetFieldCategory(parsedCategory);
         var found = _.find(this.options, f => {
             return f.customOperatorFunc != null && (
                 f.columnText == parsedCategory || f.columnField == parsedCategory
@@ -51,7 +50,6 @@ export default class GridDataAutoCompleteHandler extends BaseAutoCompleteHandler
     }
 
     needValues(parsedCategory: string, parsedOperator: string): any[] {
-        // parsedCategory = this.tryToGetFieldCategory(parsedCategory);
         var found = _.find(this.options, f => f.columnField == parsedCategory || f.columnText == parsedCategory);
 
         if (found != null && found.type == "selection" && this.data != null) {
@@ -60,9 +58,6 @@ export default class GridDataAutoCompleteHandler extends BaseAutoCompleteHandler
             }
             return this.cache[parsedCategory];
         }
-
-        console.log(parsedOperator === '==', ';;;;;;;;;;;parsedOperator');
-
 
         if (found != null && found.customValuesFunc) {
             return found.customValuesFunc(parsedCategory, parsedOperator);

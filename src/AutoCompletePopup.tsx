@@ -86,8 +86,6 @@ export default class AutoCompletePopup {
     }
 
     private buildComletionObj(info: HintInfo): Completion {
-        console.log("buildComletionObj :: ", info);
-        
         return {
             value: info.value,
             type: info.type,
@@ -105,27 +103,21 @@ export default class AutoCompletePopup {
             line: currentCursor.line,
             ch: currentCursor.ch - (text.length - index) + 1
         }
-
     }
 
     show() {
         var cursor = this.doc.getCursor();
         var text = this.doc.getRange({ line: 0, ch: 0 }, cursor)
         this.hintOptions.hintValues = this.needAutoCompletevalues(text);
-        console.log("In show....");
-        
 
         this.cm.showHint(this.hintOptions);
         this.completionShow = true;
     }
 
-
     private createHintOption() {
         var hintOptions = new HintOptions();
 
         hintOptions.hint = (() => {
-            console.log("hintOptions :: ", hintOptions);
-            
             var { hintValues } = hintOptions;
             var doc = this.cm.getDoc();
             var cursor = doc.getCursor();
@@ -139,7 +131,7 @@ export default class AutoCompletePopup {
                     return _.isString(f.value) ? _.startsWith(value.toLowerCase(), text.toLowerCase()) : true;
                 })
             }
-            
+
             return {
                 list: _.map(values, c => this.buildComletionObj(c)),
                 from: lastSeparatorPos,

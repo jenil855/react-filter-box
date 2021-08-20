@@ -23,9 +23,7 @@ export default class FilterQueryParser {
 
     try {
       // query = query.toString().replace("== ", "== *");
-      console.log(query, ';;;;;;;;;query');
       const getRes = this.parseQuery(query);
-      console.log("getRes :: ", getRes);
 
       return getRes;
     } catch (ex) {
@@ -40,22 +38,13 @@ export default class FilterQueryParser {
   }
 
   getSuggestions(query: string): HintInfo[] {
-    console.log("getSuggestions :: ", query);
 
     query = grammarUtils.stripEndWithNonSeparatorCharacters(query);
     try {
       query = query.toString().replace("== ", "== *");
 
-      console.log("Every Query :: ", query);
       this.parseQuery(query);
 
-
-      console.log(query, !query, grammarUtils.isLastCharacterWhiteSpace(query), 'Query of New');
-      // if (query == '==' && (query || grammarUtils.isLastCharacterWhiteSpace(query))) {
-      //   return _.map(["AND", "OR"], (f) => {
-      //     return { value: f, type: "literal" };
-      //   });
-      // }
       if (!query || grammarUtils.isLastCharacterWhiteSpace(query)) {
         return _.map(["AND", "OR"], (f) => {
           return { value: f, type: "literal" };

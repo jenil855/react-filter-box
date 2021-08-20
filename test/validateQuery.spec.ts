@@ -29,7 +29,7 @@ describe("#validateQuery", () => {
     var autoCompleteHandler = new GridDataAutoCompleteHandler([], options);
 
     describe("#category validation (all operators are valid)", () => {
-        
+
         it("with catogory matching columnField should return isValid set to true", () => {
             var expression: Expression[] = [
                 {
@@ -39,7 +39,6 @@ describe("#validateQuery", () => {
             ];
 
             var result = validateQuery(expression, autoCompleteHandler);
-            console.log(result);
             expect(result.isValid).to.be.true;
         });
 

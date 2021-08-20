@@ -8,10 +8,6 @@ export default class ParseTrace {
 
   push(item: TraceItem) {
     this.arr.push(item);
-    // if (item.value == '==') {
-    //   this.arr.push({ type: 'value', value: '*' });
-    // }
-    console.log("After push :: ", this.arr);
   }
 
   clear() {
@@ -28,11 +24,6 @@ export default class ParseTrace {
 
   getLastTokenType() {
     if (this.arr.length <= 0) return null;
-    console.log(this.arr, ' ;; Value & Operator');
-    // if (_.last(this.arr).type === 'operator' && _.last(this.arr).value) {
-    //   return this.push({ type: 'value', value: '*' });
-    // } else {
-    // }
     return _.last(this.arr).type;
   }
 

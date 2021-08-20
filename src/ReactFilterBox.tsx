@@ -15,13 +15,13 @@ import validateQuery from "./validateQuery";
 
 export default class ReactFilterBox extends React.Component<any, any> {
   public static defaultProps: any = {
-    onParseOk: () => {},
-    onParseError: () => {},
-    onChange: () => {},
-    onDataFiltered: () => {},
+    onParseOk: () => { },
+    onParseError: () => { },
+    onChange: () => { },
+    onDataFiltered: () => { },
     autoCompleteHandler: null,
-    onBlur: () => {},
-    onFocus: () => {},
+    onBlur: () => { },
+    onFocus: () => { },
     editorConfig: {},
     strictMode: false,
   };
@@ -45,8 +45,6 @@ export default class ReactFilterBox extends React.Component<any, any> {
   }
 
   needAutoCompleteValues(codeMirror: any, text: string) {
-    console.log("In props method with text : ", text);
-    
     return this.parser.getSuggestions(text);
   }
 
@@ -84,6 +82,7 @@ export default class ReactFilterBox extends React.Component<any, any> {
 
     this.props.onChange(query, result, validationResult);
   }
+
   onBlur(event: any) {
     const { onBlur } = this.props;
     this.setState({ isFocus: false });
