@@ -23,6 +23,7 @@ export default class FilterQueryParser {
 
     try {
       // query = query.toString().replace("== ", "== *");
+      console.log(query, ';;;;;;;;;query');
       const getRes = this.parseQuery(query);
 
       return getRes;

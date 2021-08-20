@@ -86,6 +86,8 @@ export default class AutoCompletePopup {
     }
 
     private buildComletionObj(info: HintInfo): Completion {
+        console.log(info, ' ;;;;;; info');
+
         return {
             value: info.value,
             type: info.type,
@@ -116,6 +118,7 @@ export default class AutoCompletePopup {
 
     private createHintOption() {
         var hintOptions = new HintOptions();
+        console.log(hintOptions, ';;;;;;hintOptions before map');
 
         hintOptions.hint = (() => {
             var { hintValues } = hintOptions;
@@ -125,6 +128,8 @@ export default class AutoCompletePopup {
             var text = doc.getRange(lastSeparatorPos, cursor);
 
             var values = hintValues;
+            console.log(values, '   ;;;;;;;;; :::::::::: valuesvaluesvaluesvalues');
+
             if (text) {
                 values = _.filter(hintValues, f => {
                     var value = f.value as string;

@@ -77,9 +77,10 @@ export default class FilterInput extends React.Component<any, any> {
         this.doc = ref.editor.getDoc();
         this.autoCompletePopup = new AutoCompletePopup(this.codeMirror, (text) => {
             const result = this.props.needAutoCompleteValues(this.codeMirror, text);
+
             // const helo = result.filter((evn) => evn.value !== "(");
 
-            return result.filter((evn) => evn.value !== "(");;
+            return result.filter((evn) => evn.value !== "(");
         })
 
         this.autoCompletePopup.customRenderCompletionItem = this.props.customRenderCompletionItem;
