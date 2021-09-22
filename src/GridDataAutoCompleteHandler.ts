@@ -32,7 +32,6 @@ export default class GridDataAutoCompleteHandler extends BaseAutoCompleteHandler
     }
 
     needCategories() {
-        console.log(this.categories, ' ;;;;::::: this.categories');
         return this.categories;
     }
 

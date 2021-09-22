@@ -123,7 +123,8 @@ export default class FilterInput extends React.Component<any, any> {
                 ref={this.codeMirrorRef.bind(this)}
                 onChange={this.handleEditorChange.bind(this)}
                 options={this.options}
-                value={this.props.value} />
+                value={this.props.value}
+            />
         );
     }
 }
