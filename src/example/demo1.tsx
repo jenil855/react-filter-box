@@ -40,6 +40,7 @@ export default class Demo1 extends React.Component<any, any> {
     onParseOk(expressions: Expression[]) {
 
         var newData = new SimpleResultProcessing(this.options).process(data, expressions);
+
         this.setState({ data: newData });
     }
 
